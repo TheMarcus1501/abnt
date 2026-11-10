@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit ABNT Descomplicado: referências, citações e modelo de TCC</title>
+<meta name="description" content="Ferramenta que abre no navegador para fazer referências e citações na ABNT, conferir se tudo que você citou está na lista e baixar um modelo de TCC pronto no Word.">
+<meta property="og:title" content="Kit ABNT Descomplicado">
+<meta property="og:description" content="Referências, citações, conferência automática e modelo de TCC no Word. R$ 27.">
+<meta property="og:image" content="conf.webp">
+<style>
+:root{
+  --desk:#E8ECF1; --ink:#14213D; --pen:#2340D8; --pen-soft:#E7EBFD; --hi:#FFE45C; --hi-soft:#FFF6BF;
+  --red:#C8332F; --green:#1C7C4A; --muted:#5B6577; --line:#D3D9E2;
+  --serif:"Iowan Old Style","Charter","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --tnr:"Times New Roman",Times,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:#fff;color:var(--ink);font:17px/1.65 var(--sans)}
+a{color:var(--pen)}
+:focus-visible{outline:3px solid var(--pen);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+h1,h2{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;margin:0}
+h1{font-size:clamp(36px,5.2vw,58px);line-height:1.04}
+h2{font-size:clamp(28px,3.4vw,38px);line-height:1.12;margin-bottom:14px}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.btn{display:inline-block;background:var(--pen);color:#fff;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:10px;font-size:17px}
+.btn:hover{background:#1A33B8}
+.btn small{display:block;font-weight:400;font-size:13px;opacity:.85}
+
+/* topo */
+.top{background:var(--desk)}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.bar b{font-family:var(--serif);font-size:20px}
+.bar a{font-size:15px;font-weight:600;text-decoration:none}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:36px 0 70px}
+@media(max-width:880px){.hero{grid-template-columns:1fr;gap:34px;padding-top:16px}}
+.hero p.sub{font-size:19px;color:var(--muted);max-width:40ch;margin:20px 0 28px}
+.hero .meta{font-size:14px;color:var(--muted);margin-top:14px}
+
+/* folha corrigida: o elemento-assinatura */
+.sheet{background:#fff;border-radius:3px;box-shadow:0 1px 0 #c8cfda,0 30px 50px -28px rgba(20,33,61,.55);padding:40px 34px 36px 62px;position:relative;font-family:var(--tnr);font-size:19px;line-height:2.4;transform:rotate(-1.2deg)}
+.sheet::before{content:"";position:absolute;left:42px;top:0;bottom:0;border-left:1.5px dashed #C5CEE9}
+.sheet .fix{position:relative;white-space:nowrap}
+.sheet s{text-decoration-color:var(--red);text-decoration-thickness:2.5px;color:#7a828f}
+.sheet .new{position:absolute;left:2px;top:-1.05em;line-height:1;font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;color:var(--red);font-size:17px;white-space:nowrap}
+.sheet .mark{background:var(--hi);padding:0 2px}
+.sheet .note{display:block;margin-top:22px;font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;color:var(--red);font-size:16px;line-height:1.4}
+.sheet .gap{display:inline-block;height:2px}
+
+/* seções */
+section{padding:80px 0}
+section.alt{background:var(--desk)}
+.narrow{max-width:680px}
+.pain{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:28px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pain div{background:#fff;padding:18px 20px;font-family:var(--tnr);font-size:17px}
+.pain s{text-decoration-color:var(--red);text-decoration-thickness:2px}
+.pain small{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:4px}
+
+.feat{display:grid;grid-template-columns:.85fr 1.15fr;gap:46px;align-items:center;margin-top:64px}
+.feat:first-of-type{margin-top:34px}
+.feat.flip{grid-template-columns:1.15fr .85fr}
+.feat.flip .txt{order:2}
+@media(max-width:880px){.feat,.feat.flip{grid-template-columns:1fr;gap:20px}.feat.flip .txt{order:0}}
+.feat h3{font-family:var(--serif);font-size:27px;font-weight:600;margin:0 0 10px;line-height:1.2}
+.feat ul{padding-left:20px;margin:10px 0 0}
+.feat li{margin:6px 0}
+.shot{border-radius:10px;overflow:hidden;box-shadow:0 1px 0 #c8cfda,0 24px 44px -26px rgba(20,33,61,.55);border:1px solid var(--line);background:#fff}
+.shot img{display:block;width:100%;height:auto}
+
+.more{columns:2 280px;column-gap:40px;margin-top:26px;padding:0;list-style:none}
+.more li{break-inside:avoid;padding:12px 0;border-top:1px solid var(--line)}
+.more b{display:block}
+
+.who{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:26px}
+@media(max-width:700px){.who{grid-template-columns:1fr}}
+.who h3{font-size:16px;margin:0 0 6px}
+
+/* preço */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:820px){.price{grid-template-columns:1fr}}
+.box{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:30px}
+.box .val{font-family:var(--serif);font-size:56px;line-height:1;margin:6px 0 4px}
+.box .val span{font-size:22px}
+.box ul{list-style:none;padding:0;margin:18px 0 24px}
+.box li{padding:7px 0 7px 26px;position:relative;border-top:1px solid #EEF1F5;font-size:15.5px}
+.box li::before{content:"";position:absolute;left:3px;top:15px;width:10px;height:5px;border-left:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(-45deg)}
+.box .btn{width:100%;text-align:center}
+.guar{font-size:14px;color:var(--muted);margin-top:14px;text-align:center}
+
+/* faq */
+details{border-top:1px solid var(--line);padding:4px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--pen);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin-bottom:16px}
+
+footer{background:var(--ink);color:#C9D2E3;padding:40px 0;font-size:14px}
+footer a{color:#fff}
+.final{text-align:center}
+.final p{max-width:46ch;margin:12px auto 26px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="bar"><b>Kit ABNT Descomplicado</b><a href="#preco">R$ 27</a></div>
+    <div class="hero">
+      <div>
+        <h1>Pare de perder ponto no TCC por causa de formatação.</h1>
+        <p class="sub">Referências, citações, capa e modelo completo do TCC na ABNT, em um arquivo que abre no navegador. Sem instalar nada e sem mensalidade.</p>
+        <a class="btn buy" href="#">Quero o kit por R$ 27</a>
+        <p class="meta">Pagamento único. Garantia de 7 dias pela Kiwify.</p>
+      </div>
+      <div class="sheet" aria-label="Exemplo de correção de orientador">
+        <p style="margin:0">Segundo a literatura, o dimensionamento correto reduz perdas
+          <span class="fix"><span class="new">(Silva, 2020, p. 15)</span><s>(SILVA, 2020)</s></span>. Os resultados confirmam o que foi observado
+          <span class="mark">(Costa, 2021)</span>.</p>
+        <span class="note">Caixa alta mudou em 2023. Faltou a página. E Costa (2021) não está nas referências!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap narrow">
+    <h2>O conteúdo está pronto, mas o trabalho volta corrigido.</h2>
+    <p class="muted">Você passou meses no conteúdo e a correção vem por detalhe. As regras de citação mudaram em 2023, e muito modelo que circula por aí ainda está no padrão antigo.</p>
+  </div>
+  <div class="wrap">
+    <div class="pain">
+      <div><s>(SILVA, 2020)</s><small>Sobrenome em caixa alta, padrão antigo</small></div>
+      <div><s>“...” (Souza, 2019).</s><small>Citação direta sem página</small></div>
+      <div><s>2. REFERENCIAL TEÓRICO</s><small>Ponto depois do número do título</small></div>
+      <div><s>Figura 3 – Circuito</s><small>Figura sem a linha de fonte</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>O que tem no kit</h2>
+    <p class="muted narrow">Um arquivo só, organizado como o próprio trabalho: o que usar enquanto escreve, para montar o documento e para conferir antes de entregar.</p>
+
+    <div class="feat">
+      <div class="txt">
+        <h3>Confere as citações do trabalho inteiro</h3>
+        <p>Cole o texto e o kit acha todas as citações. Depois compara com a sua lista de referências.</p>
+        <ul>
+          <li>O que foi citado e não está na lista</li>
+          <li>O que está na lista e nunca foi citado</li>
+          <li>Sobrenome em caixa alta e citação direta sem página</li>
+        </ul>
+      </div>
+      <div class="shot"><img src="conf.webp" width="1600" height="1000" alt="Tela do kit conferindo as citações de um texto e mostrando as que faltam na lista" loading="lazy"></div>
+    </div>
+
+    <div class="feat flip">
+      <div class="txt">
+        <h3>Referência pronta, até pelo DOI ou ISBN</h3>
+        <p>Livro, capítulo, artigo, site, TCC, lei e norma técnica. Cole o DOI do artigo ou o ISBN do livro e os campos se preenchem sozinhos.</p>
+        <p>Ao colar no Word, o negrito vem junto. A lista fica em ordem alfabética e baixa pronta em Word.</p>
+      </div>
+      <div class="shot"><img src="ref.webp" width="1600" height="1000" alt="Tela de referências com um artigo preenchido pelo DOI e a lista em ordem alfabética" loading="lazy"></div>
+    </div>
+
+    <div class="feat">
+      <div class="txt">
+        <h3>O modelo do TCC já formatado no Word</h3>
+        <p>Preencha nome, título e orientador e baixe o documento inteiro: capa, folha de rosto, folha de aprovação, resumo, sumário automático e os capítulos com o que escrever em cada um.</p>
+        <p>Margens, fonte, espaçamento e títulos numerados já vêm na ABNT.</p>
+      </div>
+      <div class="shot"><img src="capa.webp" width="1600" height="1000" alt="Tela de capa e folha de rosto com prévia das páginas" loading="lazy"></div>
+    </div>
+
+    <ul class="more">
+      <li><b>Citações no padrão de 2023</b>Direta, indireta, longa e apud, para o fim ou o meio da frase.</li>
+      <li><b>Figuras e tabelas</b>Título e linha de fonte certos, com a numeração em sequência.</li>
+      <li><b>Lista de siglas</b>Acha as siglas no seu texto e monta a lista em ordem alfabética.</li>
+      <li><b>Resumo</b>Conta as palavras, avisa se passou do limite e sugere palavras-chave.</li>
+      <li><b>Cronograma</b>A partir da data de entrega, divide o tempo entre as etapas.</li>
+      <li><b>Checklist de entrega</b>25 itens para conferir antes de mandar ao orientador.</li>
+      <li><b>Passo a passo no Word</b>Sumário automático e número de página a partir da Introdução.</li>
+      <li><b>Regras resumidas</b>Margens, fontes, títulos e os erros que mais aparecem nas correções.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <h2>Para quem é</h2>
+    <div class="who">
+      <div><h3>É para você se</h3><p class="muted">está fazendo TCC, monografia, artigo, dissertação ou relatório de estágio e quer entregar dentro da ABNT sem decorar as normas.</p></div>
+      <div><h3>Não é para você se</h3><p class="muted">o seu trabalho usa outra norma, como APA ou Vancouver. O kit também não substitui o manual da sua universidade, quando existir.</p></div>
+    </div>
+    <h2 style="margin-top:56px">Como você recebe</h2>
+    <p class="muted">Logo depois da compra, você entra na área de membros e baixa o arquivo. Abre no Chrome, Edge ou Safari, no computador ou no celular. Funciona sem internet, só a busca por DOI e ISBN precisa de conexão. O que você salva fica no seu navegador, e dá para fazer backup.</p>
+  </div>
+</section>
+
+<section class="alt" id="preco">
+  <div class="wrap price">
+    <div>
+      <h2>Menos que uma formatação feita por outra pessoa.</h2>
+      <p class="muted">Uma formatação de TCC por encomenda costuma sair a partir de R$ 80, e só serve para um trabalho. O kit fica com você para o TCC, os artigos e o que vier depois.</p>
+    </div>
+    <div class="box">
+      <div class="muted">Pagamento único</div>
+      <div class="val"><span>R$</span> 27</div>
+      <ul>
+        <li>Gerador de referências com busca por DOI e ISBN</li>
+        <li>Citações no padrão de 2023</li>
+        <li>Conferência automática de citações</li>
+        <li>Modelo completo do TCC em Word</li>
+        <li>Figuras, siglas, resumo, cronograma e checklist</li>
+      </ul>
+      <a class="btn buy" href="#">Quero o kit</a>
+      <p class="guar">Garantia de 7 dias: se não servir, você pede o reembolso pela Kiwify.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Preciso instalar alguma coisa?</summary><p>Não. É um arquivo que abre no navegador.</p></details>
+    <details><summary>Funciona no celular?</summary><p>Funciona. Para baixar o modelo do Word e trabalhar no texto, o computador é mais confortável.</p></details>
+    <details><summary>Está atualizado?</summary><p>Sim. Segue a NBR 6023:2018 (referências), a NBR 10520:2023 (citações) e a NBR 14724:2011 (trabalhos acadêmicos).</p></details>
+    <details><summary>Minha universidade tem manual próprio. Serve?</summary><p>Serve como base. Onde o manual da universidade for diferente, siga o manual.</p></details>
+    <details><summary>Meus dados vão para algum lugar?</summary><p>Não. Tudo fica salvo no seu navegador, e você pode fazer backup em um arquivo.</p></details>
+    <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias para pedir o reembolso pela própria Kiwify.</p></details>
+  </div>
+</section>
+
+<section class="alt final">
+  <div class="wrap">
+    <h2>Entregue o TCC sem correção de formatação.</h2>
+    <p>Referências, citações e modelo do TCC prontos hoje, por R$ 27.</p>
+    <a class="btn buy" href="#">Quero o kit por R$ 27</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Kit ABNT Descomplicado. Material independente, sem vínculo com a ABNT.</p>
+    <p style="margin:0">Dúvidas: <a id="contato" href="#">SEU CONTATO</a></p>
+  </div>
+</footer>
+
+<script>
+/* ===== Troque só estas duas linhas ===== */
+const LINK_KIWIFY = 'https://pay.kiwify.com.br/SEU-LINK';
+const CONTATO = {texto: 'seuemail@exemplo.com', link: 'mailto:seuemail@exemplo.com'};
+/* ======================================= */
+document.querySelectorAll('a.buy').forEach(a => { a.href = LINK_KIWIFY; a.rel = 'noopener'; });
+const c = document.getElementById('contato'); c.textContent = CONTATO.texto; c.href = CONTATO.link;
+</script>
+</body>
+</html>
